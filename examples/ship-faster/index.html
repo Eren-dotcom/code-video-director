@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Ship Faster — product intro</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* R2 (A1): dark background everywhere. */
+      body { margin: 0; background: #0b0f14; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #0b0f14; }
+      .clip { position: absolute; inset: 0; }
+    </style>
+  </head>
+  <body>
+    <!-- R1: 16:9, 15 s. Render length = root data-duration. -->
+    <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="15">
+
+      <!-- S1+S2 — abs 0.0–6.0: logo fades in (R3), then tagline slides up under it (R4) -->
+      <div id="hero" class="clip" data-composition-id="hero" data-composition-src="compositions/hero.html"
+           data-start="0" data-duration="6" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <!-- S3 — abs 6.0–12.0: three cards one by one, left → right (R5–R8) -->
+      <div id="cards" class="clip" data-composition-id="cards" data-composition-src="compositions/cards.html"
+           data-start="6" data-duration="6" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <!-- S4 — abs 12.0–15.0: end on the URL (R10) -->
+      <div id="outro" class="clip" data-composition-id="outro" data-composition-src="compositions/outro.html"
+           data-start="12" data-duration="3" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <!-- R11: music quiet under everything. R9: a whoosh on each card. Every <audio> has an id. -->
+      <audio id="music" src="assets/music.wav" data-start="0" data-duration="15" data-volume="0.2" data-track-index="2"></audio>
+      <audio id="sfx-1" src="assets/whoosh.wav" data-start="6" data-duration="0.6" data-volume="0.6" data-track-index="3"></audio>
+      <audio id="sfx-2" src="assets/whoosh.wav" data-start="7" data-duration="0.6" data-volume="0.6" data-track-index="3"></audio>
+      <audio id="sfx-3" src="assets/whoosh.wav" data-start="8" data-duration="0.6" data-volume="0.6" data-track-index="3"></audio>
+    </div>
+
+    <script>
+      // Host timeline: one paused timeline, key == root data-composition-id.
+      // Sub-composition timelines are seeked by the runtime; do NOT add them here.
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; display: grid; place-items: center;
+                font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+        /* R10 + R12: URL in brand color */
+        #outro-url { margin: 0; font-size: 72px; font-weight: 600; color: #6c5ce7; }
+      </style>
+
+      <div id="root" data-composition-id="outro" data-width="1920" data-height="1080" data-duration="3">
+        <p id="outro-url">example.com</p>
+      </div>
+
+      <script>
+        // LOCAL time: 0 here == absolute 12.0. URL fades in and HOLDS to the end (slot holds last frame).
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#outro-url", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.0);
+        window.__timelines["outro"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

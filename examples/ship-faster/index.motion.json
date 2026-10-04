@@ -1,0 +1,20 @@
+{
+  "duration": 15,
+  "assertions": [
+    { "kind": "appearsBy", "selector": "#hero-logo", "bySec": 1.3 },
+    { "kind": "staysInFrame", "selector": "#hero-logo" },
+    { "kind": "before", "a": "#hero-logo", "b": "#hero-tagline" },
+    { "kind": "appearsBy", "selector": "#hero-tagline", "bySec": 3.9 },
+    { "kind": "staysInFrame", "selector": "#hero-tagline" },
+    { "kind": "before", "a": "#hero-tagline", "b": "#cards-1" },
+    { "kind": "before", "a": "#cards-1", "b": "#cards-2" },
+    { "kind": "before", "a": "#cards-2", "b": "#cards-3" },
+    { "kind": "appearsBy", "selector": "#cards-1", "bySec": 6.9 },
+    { "kind": "appearsBy", "selector": "#cards-2", "bySec": 7.9 },
+    { "kind": "appearsBy", "selector": "#cards-3", "bySec": 8.9 },
+    { "kind": "staysInFrame", "selector": "#cards-3" },
+    { "kind": "before", "a": "#cards-3", "b": "#outro-url" },
+    { "kind": "appearsBy", "selector": "#outro-url", "bySec": 12.8 },
+    { "kind": "staysInFrame", "selector": "#outro-url" }
+  ]
+}
