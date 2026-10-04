@@ -1,0 +1,9 @@
+# generated placeholder audio (run: node assets/make-placeholders.mjs)
+examples/**/assets/*.wav
+# HyperFrames outputs
+renders/
+snapshots/
+**/renders/
+**/snapshots/
+.hyperframes/
+node_modules/

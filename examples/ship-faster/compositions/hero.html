@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        /* Sub-composition: style the root by #root; everything lives INSIDE <template>. */
+        #root { position: absolute; inset: 0; display: grid; place-items: center; color: #fff;
+                font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+        #hero-stack { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+        #hero-logo { width: 220px; height: 220px; display: block; }
+        #hero-tagline { margin: 0; font-size: 84px; font-weight: 700; letter-spacing: -0.02em; }
+      </style>
+
+      <div id="root" data-composition-id="hero" data-width="1920" data-height="1080" data-duration="6">
+        <div id="hero-stack">
+          <!-- Q1: placeholder until assets/logo.svg is supplied -->
+          <svg id="hero-logo" viewBox="0 0 100 100" aria-label="logo placeholder">
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="#6c5ce7" />
+            <path d="M30 55 L45 70 L72 35" stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <!-- R4: verbatim copy -->
+          <h1 id="hero-tagline">Ship faster</h1>
+        </div>
+      </div>
+
+      <script>
+        // LOCAL time: 0 here == absolute 0.0 (this host clip starts at 0).
+        const tl = gsap.timeline({ paused: true });
+        // R3: logo FADES in (opacity only — brief said "fades", not "slides"), 0.3 → 1.1 s
+        tl.fromTo("#hero-logo", { opacity: 0 }, { opacity: 1, duration: 0.8, ease: "power2.out" }, 0.3);
+        // R4: "then" the tagline SLIDES UP under the logo, at 3.0 s (strictly after the logo)
+        tl.fromTo("#hero-tagline", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 3.0);
+        window.__timelines["hero"] = tl;
+      </script>
+    </template>
+  </body>
+</html>
