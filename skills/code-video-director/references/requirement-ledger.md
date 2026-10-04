@@ -40,9 +40,16 @@ skip anything because it "seems obvious".
 ### Things that are NOT requirements (do not add them)
 
 - Your taste. "It would look better with a gradient" is not in the brief.
+- **A voiceover or narrator.** If the brief has no spoken words, the video is silent of speech.
+- **Any on-screen text not quoted or clearly described** — no titles, labels, subtitles,
+  "Introducing…", dates, footers.
+- **Captions / subtitles, music, sound effects** when not mentioned.
 - Filler: outros, "thanks for watching", social handles, extra taglines.
 - Stock media the user did not ask for.
 - A second CTA, a second logo appearance, a "cinematic" intro.
+
+Write the absences down as `FORBIDDEN` rows (`F1 no voiceover`, `F2 no extra text`, `F3 no music`,
+`F4 no captions`) so they get verified, not just remembered. See `opt-in-content.md`.
 
 If you genuinely believe the video needs something the user did not ask for, add it as a row with
 status `[ADDED]` and a one-line reason, and get it accepted (collaborative) or clearly flag it in

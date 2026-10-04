@@ -64,7 +64,16 @@ Node fallback for the full row dump when `jq` is missing:
 node -e 'const j=JSON.parse(require("fs").readFileSync("/tmp/tl.json","utf8"));j.timeline.tracks.forEach(t=>t.rows.forEach(r=>console.log(t.kind,r.id,r.absStart,r.absEnd,r.src||"",r.file)))'
 ```
 
-## 3. Text, colors, leftovers
+## 3. Text, colors, leftovers, nothing-extra
+
+```bash
+# rendered text inventory — every line must be one of the ledger's TEXT rows (title tag excluded)
+sed '/<title>/d' index.html compositions/*.html | grep -oE '>[^<>{}]{2,}<' | sed 's/^>//; s/<$//; s/^[[:space:]]*//; s/[[:space:]]*$//' | sed '/^$/d' | sort -u
+# audio inventory — must equal the ledger's AUDIO rows (empty if no sound was requested)
+npx hyperframes timeline --json | jq '[.timeline.tracks[] | select(.kind=="audio") | .rows[] | {id, src}]'
+# no narration / caption artifacts unless requested
+ls SCRIPT.md audio_meta.json captions* vo*.mp3 2>/dev/null
+```
 
 ```bash
 # every quoted string from the brief must be present verbatim

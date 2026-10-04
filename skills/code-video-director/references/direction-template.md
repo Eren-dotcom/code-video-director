@@ -35,6 +35,10 @@ status: planned | built | verified | delivered
 | ID | Requirement (user's words) | Type | Exact value / target | Status |
 | -- | -------------------------- | ---- | -------------------- | ------ |
 | R1 | … | … | … | MUST |
+| F1 | (not requested) no voiceover / narration | FORBIDDEN | timeline audio has no VO; no SCRIPT.md | MUST |
+| F2 | (not requested) no on-screen text beyond the TEXT rows | FORBIDDEN | text inventory == TEXT rows | MUST |
+| F3 | (not requested) no music | FORBIDDEN | — drop this row if music was asked | MUST |
+| F4 | (not requested) no captions / subtitles | FORBIDDEN | no caption track | MUST |
 
 ## Type & Style
 
@@ -87,7 +91,8 @@ key-frame table, proof. Start with **Scene 0 — Global**.)
 ### Scene 1 — <name>
 - **Time:** 0.0 → 3.0 · file · host id
 - **Purpose (trace):** R…
-- …
+- … (composition table · camera · motion table · transitions · audio cues · key frames · proof)
+- **Dialogue sheet** (only when a character speaks — `character-and-dialogue.md` § 1)
 
 ## Proof plan (becomes index.motion.json)
 

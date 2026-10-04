@@ -21,13 +21,13 @@ each one, write it in `DIRECTION.md` (`## Type & Style` or `## Assumptions`), an
 
 | Decision             | Default                                                                                            |
 | -------------------- | -------------------------------------------------------------------------------------------------- |
-| Hook                 | something moves or a claim lands within the first 1.5–2 s; never a slow logo fade first on social   |
+| Hook                 | the user's first described element arrives within the first 1.5–2 s; never prepend an intro sting or title the user didn't ask for |
 | Arc                  | per type (see `video-type-and-style.md` § 1); write it as `hook → … → CTA`                           |
 | One message          | one sentence the video must leave behind; every scene serves it (cut scenes that don't)             |
 | Scene count & rhythm | social: a visual change every 2–4 s · explainer: every 4–8 s · cinematic: 5–10 s                    |
 | Hold times           | title ≥ 1.5 s · sentence ≥ 0.25 s/word · stat ≥ 2 s · end card ≥ 2.5 s                                |
 | Ending               | end *on* the thing the user named (URL, logo, CTA); hold it; no black tail, no extra outro          |
-| CTA                  | one, at the end, verbatim text from user or `ASSUMED` ("Try it free at …")                           |
+| CTA                  | **only if the user gave one** (verbatim). Never invent CTA copy; "end with the URL" means the URL only |
 
 ## C. Look
 
@@ -52,18 +52,18 @@ each one, write it in `DIRECTION.md` (`## Type & Style` or `## Assumptions`), an
 | Stagger              | lists enter in order with 0.08–0.15 s stagger (or the user's "one by one" interval)                 |
 | Camera               | static unless asked; if moving: one language (slow push-in, parallax, or whip) used consistently    |
 | Transition family    | one: hard cut · crossfade 0.3–0.5 s · wipe · match-cut · shader (registry). Don't mix              |
-| Ambient motion       | optional slow drift/gradient so holds don't look frozen; never on the text itself                  |
+| Ambient motion       | only if the style recipe includes it; never on the text itself                                      |
 | Exit rule            | elements either exit (0.3 s) or the scene cuts; don't leave half-faded leftovers                   |
 | Idle/frozen check    | nothing static > 2 s except intentional end card (`keepsMoving` scope)                              |
 
-## E. Sound
+## E. Sound — **everything here is OFF unless the user asked** (`opt-in-content.md`)
 
 | Decision             | Default                                                                                            |
 | -------------------- | -------------------------------------------------------------------------------------------------- |
-| Music                | yes for promos/social, mood from style; `data-volume` 0.15–0.3 under VO, 0.4–0.6 alone; starts at 0; ends with the video (fade 1–1.5 s) |
+| Music                | **none unless requested.** When requested: mood from style; `data-volume` 0.15–0.3 under VO, 0.4–0.6 alone; starts at 0; ends with the video (fade 1–1.5 s) |
 | Beat alignment       | if music exists, land scene changes on beats (`npx hyperframes beats`)                               |
-| SFX                  | whoosh/click/pop only on key moments the user named or on ≤ 1 per scene; vol 0.4–0.7                |
-| Voiceover            | only if asked or type is explainer/tutorial; voice gender/accent/language `ASSUMED` and stated; TTS via `/media-use`; duck music under speech |
+| SFX                  | **none unless requested.** When requested: only on the moments the user named; vol 0.4–0.7         |
+| Voiceover            | **none unless requested.** For explainer/tutorial types you may ask once ("silent or narrated?"); never add silently. When requested: script verbatim or approved first; voice gender/accent/language stated; TTS via `/media-use`; duck music under speech; scenes re-timed to the real voice |
 | Loudness             | normalize VO (−16 LUFS target) — `normalize-audio`; no clipping                                     |
 | Silence              | if user says "no music", every `<audio>` is removed; report it                                      |
 | Avatar               | if the presenter is a HeyGen avatar: generate via API, place as `<video>`, graphics around it       |
@@ -73,7 +73,7 @@ each one, write it in `DIRECTION.md` (`## Type & Style` or `## Assumptions`), an
 | Decision             | Default                                                                                            |
 | -------------------- | -------------------------------------------------------------------------------------------------- |
 | Language             | the brief's language; locale formats for numbers/dates/currency                                     |
-| Captions/subtitles   | yes whenever there is speech (85 % of social is watched muted); `/embedded-captions` style; safe zone |
+| Captions/subtitles   | **none unless requested.** If there is speech and the destination is social you may ask once; when requested: `/embedded-captions` style, safe zone, ≤ 2 lines, word-timed |
 | Readability          | body ≥ 48 px @1080p for phone viewing; ≤ 6 words/line; ≤ 2 lines; high contrast                      |
 | Flashing             | no > 3 flashes/s; no full-frame strobes                                                             |
 | Alt/meta             | title in `<title>`; composition id meaningful                                                       |
@@ -120,6 +120,6 @@ Direction sheet (assumed unless you said it)
 • Arc: logo → tagline → 3 features → URL
 • Palette: #0B0F14 / #141A23 / #6C5CE7 / #FFF
 • Type: Inter 84/56/72, static camera, hard cuts, medium energy
-• Sound: soft electronic bed vol 0.2, airy whoosh ×3, no VO, no captions
+• Sound: music bed vol 0.2 + whoosh ×3 (both requested) · no VO · no captions · no extra text
 • Assets needed from you: logo.svg, music, whoosh
 ```

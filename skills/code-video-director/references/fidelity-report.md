@@ -41,6 +41,9 @@ is not evidence.
 | R10 | "end with the URL"                             | ✅ verified | appearsBy #url 12.8 ✓; staysInFrame ✓; snapshot@14.9 shows URL, nothing else fading |
 | R11 | "music quiet under everything"                 | ✅ verified | audio row music 0–15 s vol 0.2; ffprobe audio stream present              |
 | R12 | "brand color #6C5CE7"                          | ✅ verified | grep ✓ on cards + URL; snapshot@9.0                                       |
+| F1  | no voiceover (not requested)                   | ✅ verified | timeline audio rows = music + 3 sfx only; no SCRIPT.md / vo files         |
+| F2  | no on-screen text beyond R4, R6–R8, R10        | ✅ verified | text inventory == {Ship faster, Speed, Safety, Scale, example.com}       |
+| F4  | no captions (not requested)                    | ✅ verified | no caption track in timeline                                              |
 | A1  | (assumed) background hex                       | ➕ added    | #0B0F14 — say the word and I'll change it                                 |
 
 **Deviations you must know about:** R3 uses a placeholder logo until `assets/logo.svg` arrives.
@@ -53,6 +56,9 @@ the IDs to change.
 ## Rules
 
 - Row `S0` is always first: it proves the declared type & style was kept across every scene.
+- `F*` rows prove **absences** (no voiceover / extra text / music / captions unless asked). They
+  need evidence like any other row: the audio inventory and the text inventory.
+- Character videos add one row per dialogue line (`D1…`) with mouth/gesture/reaction evidence.
 - Keep the user's words in column 2. They should recognise their own brief.
 - Evidence names a tool result or a specific snapshot time. Prefer the strongest proof available:
   motion assertion > timeline row > ffprobe > grep > snapshot (snapshot is required *in addition*

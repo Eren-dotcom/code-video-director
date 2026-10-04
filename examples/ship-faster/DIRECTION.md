@@ -42,6 +42,9 @@ status: built
 | R10 | "End with the URL example.com"                                | ENDING + TEXT                | `#outro-url` text `example.com`, visible 12.0→15.0, nothing after            | MUST         |
 | R11 | "Brand color #6C5CE7"                                         | STYLE                        | `#6C5CE7` on card borders, logo, URL                                         | MUST         |
 | R12 | "Music quiet under everything"                                | AUDIO                        | `<audio id="music">` 0→15 s, vol 0.2                                         | ASSET NEEDED (Q2) |
+| F1  | (not requested) no voiceover / narration                      | FORBIDDEN                    | audio rows = music + sfx-1..3 only; no SCRIPT.md, no vo files                | MUST         |
+| F2  | (not requested) no on-screen text beyond R4, R6–R8, R10       | FORBIDDEN                    | text inventory == {Ship faster, Speed, Safety, Scale, example.com}          | MUST         |
+| F4  | (not requested) no captions / subtitles                       | FORBIDDEN                    | no caption track                                                             | MUST         |
 
 ## Type & Style
 
@@ -215,8 +218,10 @@ the absolute values.
 | R10    | before(`#cards-3`,`#outro-url`); appearsBy 12.8; staysInFrame; snapshot@14.9              |
 | R11    | grep `#6c5ce7`; snapshot@9.0, @14.9                                                       |
 | R12    | timeline audio row music 0–15 vol 0.2; ffprobe audio stream                               |
+| F1/F2/F4 | audio inventory == 4 requested rows; text inventory == 5 requested strings; no caption track |
 
 ## Change log
 
 - v1 — initial plan from brief; built; `lint` 0/0; `timeline` matches table.
 - v2 — added Type & Style declaration, Direction sheet, and full Scene Breakdown (no code change).
+- v3 — added FORBIDDEN rows F1/F2/F4 (no VO, no extra text, no captions) and their proof.

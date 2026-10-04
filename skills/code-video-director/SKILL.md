@@ -29,9 +29,12 @@ HyperFrames technical contract disagree, the technical contract wins (then tell 
 2. **Never substitute.** No template swap, no "I used a similar animation", no paraphrased copy,
    no different color, no different duration, no different aspect ratio. If something is
    impossible, say so *before* building and offer the closest option — never silently.
-3. **Never invent.** Do not add scenes, text, effects, music, or logos the user did not ask for,
-   unless you label them `[ADDED]` in the plan and the user accepts them. "Filling time" is not a
-   reason to invent.
+3. **Nothing unless asked (opt-in content).** Voiceover, narration, on-screen text that is not
+   in the brief, captions/subtitles, music, sound effects, taglines, CTAs, outros, logo bugs, intro
+   stings, stock imagery, decorative extras, characters — **all OFF by default**. They exist only
+   when the user's words ask for them. If you believe one is needed, propose it as `[ADDED]` and
+   build it only after the user accepts. "Filling time" or "templates usually have it" is never a
+   reason. Full list and the proof commands: `references/opt-in-content.md`.
 4. **Numbers are law.** Duration, aspect ratio, fps, counts ("three cards"), positions
    ("bottom-left"), timings ("at 5 seconds") are implemented exactly and verified with tooling.
 5. **Plan before code.** Write `DIRECTION.md` (Requirement Ledger + Shot List) first. Code only
@@ -57,6 +60,10 @@ Status values: `MUST` (explicit), `ASSUMED` (you inferred it; state the assumpti
 (user must supply a file), `BLOCKED` (impossible in HyperFrames as asked — propose an alternative),
 `[ADDED]` (your addition, needs acceptance).
 
+Always add `FORBIDDEN` rows for what the brief did **not** ask for — at minimum `F1 no voiceover`,
+`F2 no text beyond the listed TEXT rows`, `F3 no music`, `F4 no captions` (drop a row only when the
+brief asked for that thing). They are verified as absences in the Fidelity Report.
+
 ### Step 1 — Ask only blocking questions (max 3)
 
 Ask only when a wrong guess would waste the build: missing asset, missing length, contradictory
@@ -79,7 +86,17 @@ both explicitly, before any shot is planned, and write them into `DIRECTION.md` 
   isometric/2.5D, real 3D (Three.js), Pixar/CGI look (**needs external assets — say so and offer
   options**), cinematic footage, AI-generated plates, UI/screen demo, retro/glitch, data-viz,
   mixed media. Record the engine, palette, typography, shapes, lighting, camera, motion energy,
-  easing, transition family, sound palette, references, and forbidden things.
+  easing, transition family, sound palette, references, and forbidden things. Then open the
+  matching card in `references/style-recipes.md` — it gives the exact ingredients (hex defaults,
+  type sizes, radii, textures), the motion signature (verbs, eases, durations), transitions,
+  camera, the HyperFrames build technique, and the don'ts. Every scene uses only that card's
+  vocabulary.
+- **Characters / dialogue** — if the video has a character, presenter, avatar, or any spoken
+  line, read `references/character-and-dialogue.md` and plan a **Dialogue Sheet** per scene
+  (line verbatim · start/end from real word timings · mouth · gesture stroke word · face/eyes ·
+  body · listener reaction · camera). Speech and movement are timed together: mouth leads sound
+  by ~0.05 s, gestures land on the stressed word, reactions follow 0.2–0.4 s later, mouths are
+  closed in silence. A character the user did not ask for is never added.
 - **Director decisions** the brief skipped — format, hook, pacing, hold times, ending, CTA,
   typography, grid, logo rules, transitions, music/SFX/VO levels, captions, readability, safe zones,
   asset sourcing, templating (`references/director-decisions.md`). Decide them, mark `ASSUMED`,
@@ -173,8 +190,11 @@ npx hyperframes timeline --json > /tmp/tl.json
 ```
 
 Cross-check `/tmp/tl.json` against the Shot List: every row's `absStart`/`absEnd` equals the
-table (±0.05 s), audio rows exist with the expected `src`, nothing is `pending`. Query recipes are
-in `references/verification-recipes.md`.
+table (±0.05 s), audio rows exist with the expected `src` **and no others** (an empty audio list
+when no sound was requested), nothing is `pending`. Then run the **nothing-extra inventory**
+(`references/opt-in-content.md`): every text node in the compositions must be one of the ledger's
+TEXT rows; no caption track, TTS files, or `SCRIPT.md` exist unless requested. Query recipes are in
+`references/verification-recipes.md`.
 
 ```bash
 npx hyperframes snapshot --at <midpoint of every shot, comma-separated>
@@ -231,8 +251,12 @@ These are the ways an agent most often ends up with "not the video I described":
       (`data-media-start`), at the volume they said (`data-volume`).
 - [ ] Music/voice/SFX actually in the mix: every `<audio>` has `id`; timeline shows the audio rows;
       ffprobe shows an audio stream.
-- [ ] No extra scenes, taglines, logos, stock imagery, or "outro" the user didn't request
-      (or they are labeled `[ADDED]` and accepted).
+- [ ] **No voiceover, no narration, no music, no SFX, no captions** unless the brief asked —
+      timeline audio rows and text inventory prove it.
+- [ ] No extra scenes, taglines, titles, labels, logos, stock imagery, or "outro" the user didn't
+      request (or they are labeled `[ADDED]` and accepted).
+- [ ] Character scenes: mouth closed in silence, open on speech; gestures on their words;
+      reactions after the cue; Dialogue Sheet times equal the audio's word timings.
 - [ ] Last item in a list is present (the most commonly dropped element).
 - [ ] The end state holds: the final frame shows what the brief says ends the video, not a blank.
 - [ ] Nothing depends on time of day, random numbers, network, or user input (render determinism).
@@ -251,6 +275,9 @@ These are the ways an agent most often ends up with "not the video I described":
 | `references/video-type-and-style.md`   | decide and declare the video TYPE and visual STYLE; what each style means (and costs) in HyperFrames |
 | `references/scene-breakdown.md`        | the scene-by-scene / frame-by-frame contract: composition, motion, audio, key frames per scene |
 | `references/director-decisions.md`     | every decision the brief usually skips (format, pacing, look, motion, sound, text, assets) with defaults |
+| `references/opt-in-content.md`         | the OFF-by-default list (voiceover, text, captions, music, SFX, outros…) and how to prove nothing extra was added |
+| `references/style-recipes.md`          | one recipe card per style: exact ingredients, motion signature, transitions, camera, build technique, don'ts |
+| `references/character-and-dialogue.md` | characters and speech: Dialogue Sheet, mouth/gesture/reaction timing rules, visemes, staging, verification |
 | `references/hyperframes-gotchas.md`    | the HyperFrames mistakes that silently break fidelity, with the fix for each      |
 | `references/motion-sidecar.md`         | turn a Shot List into `index.motion.json` assertions                             |
 | `references/verification-recipes.md`   | copy-paste commands for timeline cross-check, snapshots, ffprobe                 |

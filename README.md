@@ -11,14 +11,18 @@ that each requirement is on the timeline, and a fidelity report you can audit li
 
 ```
 your description
-   → Requirement Ledger   (every noun / number / "then" / quoted string becomes a row)
+   → Requirement Ledger   (every noun / number / "then" / quoted string becomes a row,
+                           plus FORBIDDEN rows: no voiceover / extra text / music / captions
+                           unless you asked — verified as absences, not just remembered)
    → Type & Style         (what kind of video + how it looks: minimal, motion graphics, 2D, 3D,
                            Pixar-look, footage… — declared, with what each costs in HyperFrames)
    → Direction sheet      (the decisions you didn't mention: format, hook, pacing, type, palette,
                            transitions, sound, captions, assets — all marked "assumed")
    → Shot List            (absolute start/end per shot, traced to ledger IDs)
    → Scene Breakdown      (scene by scene, frame by frame: composition, motion in→hold→out,
-                           camera, transitions, audio cues, key-frame table, proof)
+                           camera, transitions, audio cues, key-frame table, proof;
+                           + a Dialogue Sheet when a character speaks: mouth, gesture,
+                           reaction timed to the real word timings)
    → HyperFrames build    (code copies the tables; never re-estimates)
    → Proof                (index.motion.json + check + timeline --json + snapshots + ffprobe)
    → Fidelity Report      (style row + one line per requirement, with evidence, before "done")
@@ -74,6 +78,14 @@ What you should get back, in order:
 For changes, name the requirement IDs ("R4: make the tagline red"). The agent edits only those,
 re-runs the gate, and reports the touched rows.
 
+## Nothing is added unless you ask
+
+Voiceover, narration, on-screen text that isn't in your brief, captions, music, sound effects,
+taglines, CTAs, outros, logo bugs, intro stings, stock imagery, characters — **all OFF by
+default**. The skill makes the AI list them as `FORBIDDEN` rows and prove their absence (audio
+inventory, text inventory) in the Fidelity Report. If the AI thinks one would help, it may
+*propose* it as `[ADDED]` — it builds it only after you say yes.
+
 ## Writing a brief the agent can't misread
 
 - Give the **total length** and **aspect ratio** (or the platform).
@@ -101,6 +113,9 @@ skills/code-video-director/
     video-type-and-style.md         video TYPE and visual STYLE catalog, what each means in HyperFrames
     scene-breakdown.md              scene-by-scene / frame-by-frame contract format
     director-decisions.md           everything a brief usually skips, with defaults
+    opt-in-content.md               the OFF-by-default list and the "nothing extra" proof
+    style-recipes.md                15 recipe cards: ingredients, motion, transitions, build, don'ts per style
+    character-and-dialogue.md       characters & speech: Dialogue Sheet, lip/gesture/reaction timing, visemes
     hyperframes-gotchas.md          HyperFrames mistakes that silently break fidelity, with fixes
     motion-sidecar.md               turning the shot list into index.motion.json assertions
     verification-recipes.md         copy-paste commands for the verification gate
