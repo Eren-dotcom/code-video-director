@@ -28,6 +28,7 @@ is not evidence.
 
 | ID  | Requirement (user's words)                     | Status      | Evidence                                                                 |
 | --- | ---------------------------------------------- | ----------- | ------------------------------------------------------------------------ |
+| S0  | Type & style as declared (promo · clean motion graphics · dark · hard cuts) | ✅ verified | palette/type/easing identical in all 4 scenes (snapshots @1.5/4.5/9.0/14.9); no style break; transition family = cuts only |
 | R1  | "16:9, 15 seconds"                             | ✅ verified | ffprobe 15.000 s, 1920×1080; root data-duration=15                        |
 | R2  | "dark background"                              | ✅ verified | #0B0F14 on #bg (assumed hex, A1); snapshot@1.5                            |
 | R3  | "the logo fades in center"                     | ⚠️ partial  | motion: appearsBy #logo 1.3 ✓; opacity-only tween ✓; **placeholder SVG — need your logo file (Q1)** |
@@ -51,6 +52,7 @@ the IDs to change.
 
 ## Rules
 
+- Row `S0` is always first: it proves the declared type & style was kept across every scene.
 - Keep the user's words in column 2. They should recognise their own brief.
 - Evidence names a tool result or a specific snapshot time. Prefer the strongest proof available:
   motion assertion > timeline row > ffprobe > grep > snapshot (snapshot is required *in addition*

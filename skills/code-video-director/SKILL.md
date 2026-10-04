@@ -65,7 +65,34 @@ stated. Do not interview the user about taste when they already described the vi
 
 If the user says "just build it", build it with the assumptions listed at the top of your reply.
 
-### Step 2 — Write the Shot List
+### Step 1.5 — Declare the TYPE, the STYLE, and the director decisions
+
+Users describe *content* and rarely say what kind of video it is or how it should look. Decide
+both explicitly, before any shot is planned, and write them into `DIRECTION.md` → `## Type & Style`
+(`references/video-type-and-style.md`):
+
+- **Type** — what the video is: logo sting, promo, ad/social cut, explainer, tutorial, UI demo,
+  data story, kinetic typography, slideshow, talking-head overlay, avatar presenter, music video,
+  narrative short, personalized card… Each implies an arc, a length, and often an official route.
+- **Style** — how it looks and moves, *in HyperFrames terms*: simple/minimal, clean motion
+  graphics (default), kinetic type, flat 2D animation (SVG/Lottie), whiteboard, paper cut-out,
+  isometric/2.5D, real 3D (Three.js), Pixar/CGI look (**needs external assets — say so and offer
+  options**), cinematic footage, AI-generated plates, UI/screen demo, retro/glitch, data-viz,
+  mixed media. Record the engine, palette, typography, shapes, lighting, camera, motion energy,
+  easing, transition family, sound palette, references, and forbidden things.
+- **Director decisions** the brief skipped — format, hook, pacing, hold times, ending, CTA,
+  typography, grid, logo rules, transitions, music/SFX/VO levels, captions, readability, safe zones,
+  asset sourcing, templating (`references/director-decisions.md`). Decide them, mark `ASSUMED`,
+  and show the 8–12 that matter as a short **Direction sheet** in your reply.
+
+Honesty rule: never promise a look the engine cannot draw. If the user names a style that needs
+assets (3D models, illustrated characters, footage, Pixar-look clips), list each as `ASSET NEEDED`
+with its source, or `🔒 blocked` with alternatives — before building.
+
+One style for the whole video. Every later scene is checked against this block, and the Fidelity
+Report carries a row **S0 — Style adherence**.
+
+### Step 2 — Write the Shot List and the Scene Breakdown
 
 In `DIRECTION.md`, section "Shot List" (template: `references/direction-template.md`). One row per
 shot: `Shot · Start · End · What is on screen (traced ledger IDs) · Motion · Audio · Element ids`.
@@ -80,14 +107,25 @@ Hard checks before continuing:
 - Every quoted string in the brief appears in the shot list exactly as quoted.
 - Counts match ("three cards" → three element ids).
 
-Show the Shot List to the user as a short table when running collaboratively; otherwise continue
-and include it in the final report.
+Then expand every shot into a **Scene Breakdown** (`references/scene-breakdown.md`) — the
+frame-by-frame contract. Per scene: time in/out, purpose traced to ledger IDs, narration verbatim,
+on-screen text verbatim, a composition table (every element: id, position, size, color, type), the
+camera, a motion table (in → hold → out with exact time, verb, from→to, duration, easing), the
+transitions in/out, an audio cue table, a **key-frame table** (what the viewer sees at each moment
+something changes, at the snapshot point, and at the last frame), and the proof assertions. Add a
+**Scene 0 — Global** block (background, persistent elements, music bed, final frame). Code is
+written *from* this breakdown; nothing in the HTML may contradict it.
+
+Show the Direction sheet + Shot List to the user as a short table when running collaboratively
+(the full breakdown stays in `DIRECTION.md`); otherwise continue and include them in the final
+report.
 
 ### Step 3 — Build with HyperFrames (follow the technical contract)
 
-Read `/hyperframes-core` before writing HTML if you haven't this session. Then build from the Shot
-List: one element id per Shot List row, `data-start`/`data-duration` copied from the table — not
-re-estimated. Read `references/hyperframes-gotchas.md` first: it lists the exact mistakes that make
+Read `/hyperframes-core` before writing HTML if you haven't this session. Then build from the Scene
+Breakdown: one element id per composition-table row, `data-start`/`data-duration` copied from the
+tables — not re-estimated; motion verbs, durations, and eases copied from the motion tables; the
+style block's palette/typography/transition family applied everywhere. Read `references/hyperframes-gotchas.md` first: it lists the exact mistakes that make
 a render silently differ from the preview or the plan (silent audio, cut-off endings, clips that
 never appear, fonts that fall back, timelines that don't seek).
 
@@ -160,7 +198,7 @@ Only after all of that: preview for the user (`npx hyperframes preview --backgro
 
 ### Step 6 — Fidelity Report (mandatory before "done")
 
-Reply with the table from `references/fidelity-report.md`: one row per ledger ID, status
+Reply with the table from `references/fidelity-report.md`: a row **S0 — Style adherence**, then one row per ledger ID, status
 `✅ verified` / `⚠️ partial` / `❌ not done` / `[ADDED]`, and the **evidence** (which assertion,
 which snapshot time, which timeline row). Never mark ✅ without evidence. Never hide a ⚠️ or ❌ —
 state it and say what you need to fix it. A report with zero ⚠️/❌ and every row evidenced is the
@@ -198,13 +236,21 @@ These are the ways an agent most often ends up with "not the video I described":
 - [ ] Last item in a list is present (the most commonly dropped element).
 - [ ] The end state holds: the final frame shows what the brief says ends the video, not a blank.
 - [ ] Nothing depends on time of day, random numbers, network, or user input (render determinism).
+- [ ] The declared **type & style** is what got built: same engine, palette, type, motion energy,
+      transition family in every scene; no style break (e.g. a 3D hero then flat cards) unless asked.
+- [ ] Every key frame in the Scene Breakdown matches its snapshot; the final frame is the declared
+      end state.
+- [ ] Director decisions marked `ASSUMED` were shown to the user, not buried.
 
 ## References (read on demand)
 
 | File                                   | Read it to…                                                                      |
 | -------------------------------------- | -------------------------------------------------------------------------------- |
 | `references/requirement-ledger.md`     | extract requirements from a brief without losing anything; ledger template       |
-| `references/direction-template.md`     | the `DIRECTION.md` file shape (ledger + shot list + assumptions + open questions) |
+| `references/direction-template.md`     | the `DIRECTION.md` file shape (ledger + type & style + shot list + scene breakdown + proof plan) |
+| `references/video-type-and-style.md`   | decide and declare the video TYPE and visual STYLE; what each style means (and costs) in HyperFrames |
+| `references/scene-breakdown.md`        | the scene-by-scene / frame-by-frame contract: composition, motion, audio, key frames per scene |
+| `references/director-decisions.md`     | every decision the brief usually skips (format, pacing, look, motion, sound, text, assets) with defaults |
 | `references/hyperframes-gotchas.md`    | the HyperFrames mistakes that silently break fidelity, with the fix for each      |
 | `references/motion-sidecar.md`         | turn a Shot List into `index.motion.json` assertions                             |
 | `references/verification-recipes.md`   | copy-paste commands for timeline cross-check, snapshots, ffprobe                 |

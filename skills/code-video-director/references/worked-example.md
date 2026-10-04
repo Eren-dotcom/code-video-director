@@ -26,6 +26,23 @@ decisions that prevent drift:
   "not acceptable for delivery".
 - Background hex, font, card spacing, volumes → `ASSUMED`, each listed so the user can override.
 
+## 2b. Type & style, and the decisions the brief skipped
+
+The brief never says what *kind* of video or what *look*. `DIRECTION.md` → `## Type & Style`
+declares: **product intro · clean motion graphics · dark · static camera · hard cuts · medium
+energy**, with the palette, type sizes, radius, sound levels and a *Forbidden* list — all
+`ASSUMED` except the brand hex and the audio the user named. The six-line **Direction sheet** is
+what the user sees first, so a wrong guess costs one reply, not a rebuild. Had the user written
+"Pixar style", the correct move is to stop and offer the three options in
+`video-type-and-style.md` § 2 — not to build flat cards and call them Pixar.
+
+## 2c. Scene breakdown (frame by frame)
+
+Each shot becomes a scene block with a composition table, a motion table (in → hold → out), audio
+cues, and a **key-frame table** — e.g. Scene 2 lists what is visible at 6.00 / 6.50 / 7.00 / 7.50 /
+8.00 / 8.50 / 9.00 / 11.97. Those key-frame times are the `snapshot --at` list, and each PNG is
+judged against its row. See `examples/ship-faster/DIRECTION.md` for the full text.
+
 ## 3. Shot list → timing that the code copies
 
 | Shot | Abs start | Abs end | Host clip (index.html)            | Local tween positions inside the sub-composition |

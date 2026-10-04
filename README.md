@@ -12,10 +12,16 @@ that each requirement is on the timeline, and a fidelity report you can audit li
 ```
 your description
    → Requirement Ledger   (every noun / number / "then" / quoted string becomes a row)
+   → Type & Style         (what kind of video + how it looks: minimal, motion graphics, 2D, 3D,
+                           Pixar-look, footage… — declared, with what each costs in HyperFrames)
+   → Direction sheet      (the decisions you didn't mention: format, hook, pacing, type, palette,
+                           transitions, sound, captions, assets — all marked "assumed")
    → Shot List            (absolute start/end per shot, traced to ledger IDs)
-   → HyperFrames build    (code copies the table; never re-estimates)
+   → Scene Breakdown      (scene by scene, frame by frame: composition, motion in→hold→out,
+                           camera, transitions, audio cues, key-frame table, proof)
+   → HyperFrames build    (code copies the tables; never re-estimates)
    → Proof                (index.motion.json + check + timeline --json + snapshots + ffprobe)
-   → Fidelity Report      (one line per requirement, with evidence, before "done")
+   → Fidelity Report      (style row + one line per requirement, with evidence, before "done")
 ```
 
 ## Install
@@ -57,7 +63,9 @@ Brand color #6C5CE7. Music quiet under everything.
 
 What you should get back, in order:
 
-1. A **Requirement Ledger** + **Shot List** (`DIRECTION.md`) and at most 3 blocking questions.
+1. A **Direction sheet** (type, style, format, palette, motion, sound, assets needed — assumptions
+   flagged), a **Requirement Ledger**, a **Shot List**, and a full **Scene Breakdown** in
+   `DIRECTION.md`; at most 3 blocking questions.
 2. The build, then the verification gate (`lint` → `check` → `timeline` → snapshots → draft render).
 3. A **Fidelity Report** — one row per requirement with ✅/⚠️/❌ and the evidence. Anything not
    exactly as you asked is called out, never hidden.
@@ -77,6 +85,10 @@ re-runs the gate, and reports the touched rows.
 - Say what the video **ends on**.
 - Say what you **don't** want ("no music", "no extra outro").
 - Attach your files (logo, music, footage) or expect them to be listed as `ASSET NEEDED`.
+- Name the **style** if you have one in mind: "simple", "motion graphics", "2D cartoon", "3D",
+  "Pixar-like", "cinematic footage", "kinetic typography"… HyperFrames renders what a browser can
+  draw, so 3D needs models and a Pixar look needs pre-rendered or generated clips — the skill will
+  tell you honestly and offer options instead of quietly building something else.
 
 ## Repository layout
 
@@ -85,7 +97,10 @@ skills/code-video-director/
   SKILL.md                          the skill (entry point)
   references/
     requirement-ledger.md           how to extract requirements without losing any
-    direction-template.md           DIRECTION.md template (ledger + shot list + proof plan)
+    direction-template.md           DIRECTION.md template (ledger + style + shot list + scenes + proof)
+    video-type-and-style.md         video TYPE and visual STYLE catalog, what each means in HyperFrames
+    scene-breakdown.md              scene-by-scene / frame-by-frame contract format
+    director-decisions.md           everything a brief usually skips, with defaults
     hyperframes-gotchas.md          HyperFrames mistakes that silently break fidelity, with fixes
     motion-sidecar.md               turning the shot list into index.motion.json assertions
     verification-recipes.md         copy-paste commands for the verification gate

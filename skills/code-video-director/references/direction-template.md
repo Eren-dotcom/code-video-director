@@ -36,6 +36,33 @@ status: planned | built | verified | delivered
 | -- | -------------------------- | ---- | -------------------- | ------ |
 | R1 | … | … | … | MUST |
 
+## Type & Style
+
+(Full field list and the style capability table: `video-type-and-style.md` § 3.)
+
+| Field            | Value                                             | Source  |
+| ---------------- | ------------------------------------------------- | ------- |
+| Type / arc       | product promo · logo → tagline → features → URL   | ASSUMED |
+| Platform / format| YouTube · 1920×1080 · 30 fps · 15 s               | MUST    |
+| Audience / tone  | …                                                 | ASSUMED |
+| Style / engine   | clean motion graphics · CSS + GSAP · no 3D        | ASSUMED |
+| Palette          | bg · surface · brand (exact hex) · text tones     | brand MUST |
+| Typography       | family (shipped) · headline/body/label sizes      | ASSUMED |
+| Shapes · depth · camera | radius/borders · flat · static             | ASSUMED |
+| Motion energy · easing · transitions | medium · power2/3.out · hard cuts | ASSUMED |
+| Sound palette    | music mood + vol · SFX · VO voice · captions      | …       |
+| References       | …                                                 | MUST    |
+| Forbidden        | …                                                 | ASSUMED |
+
+## Direction sheet (the 8–12 lines shown to the user)
+
+- Type/style: …
+- Format: …
+- Arc: …
+- Palette / type / motion / transitions: …
+- Sound: …
+- Assets needed from you: …
+
 ## Shot List
 
 | Shot | Start | End | On screen (trace) | Motion | Audio | Element ids |
@@ -47,6 +74,20 @@ status: planned | built | verified | delivered
 
 **Checks:** last End = `duration` ✓ · every MUST ID appears in a trace ✓ · sequence words →
 increasing starts ✓ · all quoted strings verbatim ✓ · counts match ✓
+
+## Scene Breakdown
+
+(One block per scene using the template in `scene-breakdown.md`: time, purpose/trace, narration,
+on-screen text, composition table, camera, motion table in→hold→out, transitions, audio cues,
+key-frame table, proof. Start with **Scene 0 — Global**.)
+
+### Scene 0 — Global
+- Background: … · Persistent elements: … · Music bed: … · Final frame: …
+
+### Scene 1 — <name>
+- **Time:** 0.0 → 3.0 · file · host id
+- **Purpose (trace):** R…
+- …
 
 ## Proof plan (becomes index.motion.json)
 
